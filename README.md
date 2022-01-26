@@ -1,3 +1,12 @@
+# BHMOD
+
+A mod based on devilutionX with few minor changes:
+
+1. Gold pile is set to contain 50 000 gold
+2. When you die on multiplayer, items do not drop on the ground (only half of your gold)
+3. When Diablo dies, he dropes a loot (with a little bit higher chance for unique) and the game continues.
+
+
 <p align="center">
 <img width="554" src="https://user-images.githubusercontent.com/204594/113575181-c946a400-961d-11eb-8347-a8829fa3830c.png">
 </p>
