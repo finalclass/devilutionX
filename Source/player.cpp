@@ -3190,13 +3190,13 @@ StartPlayerKill(int pnum, int earflag)
 							DeadItem(player, &ear, { 0, 0 });
 						}
 					} else {
-						Direction pdd = player._pdir;
-						for (auto &item : player.InvBody) {
-							pdd = Left(pdd);
-							DeadItem(player, &item, Displacement(pdd));
-						}
+						// Direction pdd = player._pdir;
+						// for (auto &item : player.InvBody) {
+						// 	pdd = Left(pdd);
+						// 	DeadItem(player, &item, Displacement(pdd));
+						// }
 
-						CalcPlrInv(player, false);
+						// CalcPlrInv(player, false);
 					}
 				}
 			}
