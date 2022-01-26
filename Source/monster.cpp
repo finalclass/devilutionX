@@ -1053,32 +1053,34 @@ void DiabloDeath(Monster &diablo, bool sendmsg)
 	quest._qactive = QUEST_DONE;
 	if (sendmsg)
 		NetSendCmdQuest(true, quest);
-	sgbSaveSoundOn = gbSoundOn;
-	gbProcessPlayers = false;
-	for (int j = 0; j < ActiveMonsterCount; j++) {
-		int k = ActiveMonsters[j];
-		auto &monster = Monsters[k];
-		if (monster.MType->mtype == MT_DIABLO || diablo._msquelch == 0)
-			continue;
+	return;
 
-		NewMonsterAnim(monster, MonsterGraphic::Death, monster._mdir);
-		monster._mmode = MonsterMode::Death;
-		monster.position.offset = { 0, 0 };
-		monster._mVar1 = 0;
-		monster.position.tile = monster.position.old;
-		monster.position.future = monster.position.tile;
-		M_ClearSquares(k);
-		dMonster[monster.position.tile.x][monster.position.tile.y] = k + 1;
-	}
-	AddLight(diablo.position.tile, 8);
-	DoVision(diablo.position.tile, 8, MAP_EXP_NONE, true);
-	int dist = diablo.position.tile.WalkingDistance(ViewPosition);
-	if (dist > 20)
-		dist = 20;
-	diablo._mVar3 = ViewPosition.x << 16;
-	diablo.position.temp.x = ViewPosition.y << 16;
-	diablo.position.temp.y = (int)((diablo._mVar3 - (diablo.position.tile.x << 16)) / (double)dist);
-	diablo.position.offset2.deltaX = (int)((diablo.position.temp.x - (diablo.position.tile.y << 16)) / (double)dist);
+	// sgbSaveSoundOn = gbSoundOn;
+	// gbProcessPlayers = false;
+	// for (int j = 0; j < ActiveMonsterCount; j++) {
+	// 	int k = ActiveMonsters[j];
+	// 	auto &monster = Monsters[k];
+	// 	if (monster.MType->mtype == MT_DIABLO || diablo._msquelch == 0)
+	// 		continue;
+
+	// 	NewMonsterAnim(monster, MonsterGraphic::Death, monster._mdir);
+	// 	monster._mmode = MonsterMode::Death;
+	// 	monster.position.offset = { 0, 0 };
+	// 	monster._mVar1 = 0;
+	// 	monster.position.tile = monster.position.old;
+	// 	monster.position.future = monster.position.tile;
+	// 	M_ClearSquares(k);
+	// 	dMonster[monster.position.tile.x][monster.position.tile.y] = k + 1;
+	// }
+	// AddLight(diablo.position.tile, 8);
+	// DoVision(diablo.position.tile, 8, MAP_EXP_NONE, true);
+	// int dist = diablo.position.tile.WalkingDistance(ViewPosition);
+	// if (dist > 20)
+	// 	dist = 20;
+	// diablo._mVar3 = ViewPosition.x << 16;
+	// diablo.position.temp.x = ViewPosition.y << 16;
+	// diablo.position.temp.y = (int)((diablo._mVar3 - (diablo.position.tile.x << 16)) / (double)dist);
+	// diablo.position.offset2.deltaX = (int)((diablo.position.temp.x - (diablo.position.tile.y << 16)) / (double)dist);
 }
 
 void SpawnLoot(Monster &monster, bool sendmsg)
@@ -1799,22 +1801,24 @@ bool MonsterDeath(int i)
 	assert(monster.MType != nullptr);
 
 	monster._mVar1++;
-	if (monster.MType->mtype == MT_DIABLO) {
-		if (monster.position.tile.x < ViewPosition.x) {
-			ViewPosition.x--;
-		} else if (monster.position.tile.x > ViewPosition.x) {
-			ViewPosition.x++;
-		}
+	// if (monster.MType->mtype == MT_DIABLO) {
+	// 	if (monster.position.tile.x < ViewPosition.x) {
+	// 		ViewPosition.x--;
+	// 	} else if (monster.position.tile.x > ViewPosition.x) {
+	// 		ViewPosition.x++;
+	// 	}
 
-		if (monster.position.tile.y < ViewPosition.y) {
-			ViewPosition.y--;
-		} else if (monster.position.tile.y > ViewPosition.y) {
-			ViewPosition.y++;
-		}
+	// 	if (monster.position.tile.y < ViewPosition.y) {
+	// 		ViewPosition.y--;
+	// 	} else if (monster.position.tile.y > ViewPosition.y) {
+	// 		ViewPosition.y++;
+	// 	}
 
-		if (monster._mVar1 == 140)
-			PrepDoEnding();
-	} else if (monster.AnimInfo.CurrentFrame == monster.AnimInfo.NumberOfFrames) {
+	// 	if (monster._mVar1 == 140)
+	// 		PrepDoEnding();
+	// } else
+
+	if (monster.AnimInfo.CurrentFrame == monster.AnimInfo.NumberOfFrames) {
 		if (monster._uniqtype == 0)
 			AddCorpse(monster.position.tile, monster.MType->mdeadval, monster._mdir);
 		else
