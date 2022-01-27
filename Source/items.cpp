@@ -3254,6 +3254,19 @@ int RndItem(const Monster &monster)
 	}
 
 	int r = GenerateRnd(ri);
+	if (monster.MType->mtype == MT_DIABLO) {
+		// for diablo, try few more times to get a unique
+		if (ril[r] + 1 > 0) {
+			r = GenerateRnd(ri);
+		}
+		if (ril[r] + 1 > 0) {
+			r = GenerateRnd(ri);
+		}
+		if (ril[r] + 1 > 0) {
+			r = GenerateRnd(ri);
+		}
+	}
+
 	return ril[r] + 1;
 }
 
@@ -3280,16 +3293,11 @@ void SpawnItem(Monster &monster, Point position, bool sendmsg)
 {
 	int idx;
 	bool onlygood = true;
-
-	if (monster.MType->mtype == MT_DIABLO) {
-		idx = RndUItem(&monster);
-		idx -= 10;
-		if (idx < 0) {
-			SpawnUnique((_unique_items) - (idx + 1), position);
-			return;
-		}
-		onlygood = true;
-	} else if (monster._uniqtype != 0 || ((monster.MData->mTreasure & T_UNIQ) != 0 && gbIsMultiplayer)) {
+	if (
+	    monster.MType->mtype == MT_DIABLO ||
+	    monster._uniqtype != 0 ||
+	    ((monster.MData->mTreasure & T_UNIQ) != 0 && gbIsMultiplayer)
+	    ) {
 		idx = RndUItem(&monster);
 		if (idx < 0) {
 			SpawnUnique((_unique_items) - (idx + 1), position);
