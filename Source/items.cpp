@@ -15,7 +15,6 @@
 
 #include <fmt/format.h>
 
-#include "utils/log.hpp"
 #include "DiabloUI/ui_flags.hpp"
 #include "cursor.h"
 #include "doom.h"
@@ -1401,7 +1400,6 @@ int RndUItem(Monster *monster)
 	if (monster->MType->mtype == MT_DIABLO) {
 		// for diablo, try few more times to get a unique
 		for (int i = 0; i < 4 && ril[r] > 0; i += 1) {
-			Log("Diablo drop try {}", i + 1);
 			r = GenerateRnd(ri);
 		}
 	}
